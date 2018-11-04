@@ -61,9 +61,6 @@ class TwitterClient:
                               "timestamp": str(datetime.timestamp(datetime.now())),
                               "followers_count": len(followers_ids_from_client),
                               "followers_ids": followers_ids_from_client}
-        # update db
-        with output_path.open(mode="a+") as output:
-            print(json.dumps(followers_ids_dict), file=output)
 
         # get most recently saved follower status if available
         if output_path.exists():
@@ -81,5 +78,9 @@ class TwitterClient:
         else:
             unfollowers = set()
             new_followers = set(followers_ids_from_client)
+
+        # update db
+        with output_path.open(mode="a+") as output:
+            print(json.dumps(followers_ids_dict), file=output)
 
         return unfollowers, new_followers
