@@ -12,8 +12,8 @@ if __name__ == '__main__':
             print(f"Refreshing data for {user_name}")
             # TODO: handle authorization error
             twitter_client = TwitterClient(user_name)
-            unfollower_ids, new_follower_ids = twitter_client.compare_followers_ids()
-
+            unfollower_ids, new_follower_ids, followers_count = twitter_client.compare_followers_ids()
+            print(f"followers count: {followers_count}")
             if unfollower_ids:
                 unfollower_names = twitter_client.get_names_from_ids(unfollower_ids)
                 # TODO: log and slack

@@ -58,6 +58,7 @@ class TwitterClient:
         followers_ids_from_client = self.get_followers_ids()
         followers_ids_dict = {"user_id": self.user.id,
                               "user_name": self.user.name,
+                              "date": str(datetime.now()),
                               "timestamp": str(datetime.timestamp(datetime.now())),
                               "followers_count": len(followers_ids_from_client),
                               "followers_ids": followers_ids_from_client}
@@ -83,4 +84,4 @@ class TwitterClient:
         with output_path.open(mode="a+") as output:
             print(json.dumps(followers_ids_dict), file=output)
 
-        return unfollowers, new_followers
+        return unfollowers, new_followers, len(followers_ids_from_client)
