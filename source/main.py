@@ -16,6 +16,8 @@ if __name__ == '__main__':
 
             if unfollower_ids:
                 unfollower_names = twitter_client.get_names_from_ids(unfollower_ids)
+                # TODO: log and slack
+                print(f"[username] unfollowed by: {unfollower_names[:10]}")
                 send_message_to_channel(f"[username] unfollowed by: {unfollower_names[:10]}")
 
             # if new_follower_ids:
@@ -23,7 +25,7 @@ if __name__ == '__main__':
             #     send_message_to_channel(f"[username] followed by: {new_follower_names[:10]}")
 
             if not unfollower_ids and not new_follower_ids:
-                print(f"no changes for {datetime.now()}")
+                print(f"no changes for {datetime.now()}\n")
 
         print(f"Taking a nap, back in {COMPARE_FOLLOWERS_SLEEP_INTERVAL} seconds\n\n")
         sleep(COMPARE_FOLLOWERS_SLEEP_INTERVAL)
