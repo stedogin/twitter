@@ -13,7 +13,3 @@ def test_endpoint():
     if request.method == "GET":
         print("/slack endpoint online")
         return Response("/slack endpoint online")
-
-
-if __name__ == "__main__":
-    slack_apps_server.run(debug=True)
