@@ -14,21 +14,16 @@ if __name__ == '__main__':
             twitter_client = TwitterClient(user_name)
             unfollower_ids, new_follower_ids = twitter_client.compare_followers_ids()
 
-            # TODO: merge, get names from ids
-
             if unfollower_ids:
                 unfollower_names = twitter_client.get_names_from_ids(unfollower_ids)
-                # TODO: slack
-                send_message_to_channel(f"UNFOLLOWERS: {unfollower_names[:10]}")
+                send_message_to_channel(f"[username] unfollowed by: {unfollower_names[:10]}")
 
-            if new_follower_ids:
-                new_follower_names = twitter_client.get_names_from_ids(new_follower_ids)
-
-                # TODO: slack
-                send_message_to_channel(f"NEW FOLLOWERS: {new_follower_names[:10]}")
+            # if new_follower_ids:
+            #     new_follower_names = twitter_client.get_names_from_ids(new_follower_ids)
+            #     send_message_to_channel(f"[username] followed by: {new_follower_names[:10]}")
 
             if not unfollower_ids and not new_follower_ids:
                 print(f"no changes for {datetime.now()}")
 
-        print(f"Taking a nap, back in {COMPARE_FOLLOWERS_SLEEP_INTERVAL} seconds")
+        print(f"Taking a nap, back in {COMPARE_FOLLOWERS_SLEEP_INTERVAL} seconds\n\n")
         sleep(COMPARE_FOLLOWERS_SLEEP_INTERVAL)
