@@ -18,7 +18,7 @@ if __name__ == '__main__':
                 unfollower_names = twitter_client.get_names_from_ids(unfollower_ids)
                 # TODO: log and slack
                 print(f"[username] unfollowed by: {unfollower_names[:10]}")
-                send_message_to_channel(f"[username] unfollowed by: {unfollower_names[:10]}")
+                send_message_to_channel(f"[{username}] unfollowed by: {unfollower_names[:10]}")
 
             # if new_follower_ids:
             #     new_follower_names = twitter_client.get_names_from_ids(new_follower_ids)
