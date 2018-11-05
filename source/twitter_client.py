@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-from tweepy import API, Cursor, OAuthHandler
+from tweepy import API, Cursor, OAuthHandler, TweepError
 from python_utils import get_environment_variable
 from config import DEFAULT_TWITTER_USER_ID, OUTPUT_FOLDER_PATH, FILENAME_SEPARATOR
 
@@ -30,8 +30,12 @@ class TwitterClient:
     def get_names_from_ids(self, user_ids):
         user_names = []
         for user_id in user_ids:
-            user = self.twitter_client.get_user(user_id)
-            user_names.append(user.name)
+            try:
+                user = self.twitter_client.get_user(user_id)
+                user_names.append(user.name)
+            except TweepError as e:
+                print(f"Failed to get user info for {user_id}: {e}")
+                user_names.append(f"{user_id} (unavailable/deactivated)")
         return user_names
 
     def get_followers_ids(self, user_id=None):
