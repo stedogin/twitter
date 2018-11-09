@@ -6,19 +6,27 @@ from config import DEFAULT_TWITTER_USER_ID, OUTPUT_FOLDER_PATH, FILENAME_SEPARAT
 
 
 class TwitterClient:
-    def __init__(self, user=DEFAULT_TWITTER_USER_ID):
-
+    def __init__(self, user=DEFAULT_TWITTER_USER_ID, debug=False):
+        self.user = user
         self.consumer_key = get_environment_variable("TWITTER_CONSUMER_KEY")
         self.consumer_secret = get_environment_variable("TWITTER_CONSUMER_SECRET")
         self.access_token = get_environment_variable("TWITTER_ACCESS_TOKEN")
         self.access_token_secret = get_environment_variable("TWITTER_ACCESS_TOKEN_SECRET")
         self.twitter_client = self.get_authenticated_client()
+        self.debug = debug
 
         self.streams = []
 
-        self.user = None
-        if user:
-            self.user = self.twitter_client.get_user(user)
+        if self.user:
+            self.user = self.twitter_client.get_user(self.user)
+
+    # TODO: add context managers
+    # def __enter__(self):
+    #     pass
+    #
+    # def __exit__(self, exception_type, exception_value, exception_traceback):
+    #     if exception_type:
+    #         print(f"{exception_type} while closing TwitterClient: {exception_value}")
 
     def get_authenticated_client(self):
         auth = OAuthHandler(self.consumer_key, self.consumer_secret)
@@ -36,7 +44,8 @@ class TwitterClient:
                 user = self.twitter_client.get_user(user_id)
                 user_names.append(user.name)
             except TweepError as e:
-                print(f"Failed to get user info for {user_id}: {e}")
+                if self.debug:
+                    print(f"Failed to get user info for {user_id}: {e}")
                 user_names.append(f"{user_id} (unavailable/deactivated)")
         return user_names
 
