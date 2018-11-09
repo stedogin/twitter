@@ -2,4 +2,3 @@
 *.pyc
 source/data/*
 source/__pycache__/*
-source/config.py
