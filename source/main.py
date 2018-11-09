@@ -21,7 +21,7 @@ if __name__ == '__main__':
                     unfollower_names = twitter_client.get_names_from_ids(unfollower_ids)
 
                     # TODO: send to different channels / show avatar
-                    log_and_slack(f"[{user_name}] unfollowed by: {unfollower_names}")
+                    log_and_slack(f"@{user_name} unfollowed by: {unfollower_names}")
 
                 # new followers
                 if new_follower_ids:
