@@ -1,14 +1,13 @@
 from time import sleep
 from datetime import datetime
-from twitter_client import TwitterClient
-from config import COMPARE_FOLLOWERS_SLEEP_INTERVAL
 from utils import log_and_slack
+from twitter_client import TwitterClient
+from config import COMPARE_FOLLOWERS_SLEEP_INTERVAL, USERS_TO_MONITOR
 
 
 if __name__ == '__main__':
-    user_names_to_monitor = ["uncle__istvan", "schmetterlieb"]
     while True:
-        for user_name in user_names_to_monitor:
+        for user_name in USERS_TO_MONITOR:
             try:
                 print(f"[{datetime.now()}] Refreshing data for {user_name}")
 
