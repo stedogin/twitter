@@ -16,7 +16,9 @@ class TwitterClient:
 
         self.streams = []
 
-        self.user = self.twitter_client.get_user(user)
+        self.user = None
+        if user:
+            self.user = self.twitter_client.get_user(user)
 
     def get_authenticated_client(self):
         auth = OAuthHandler(self.consumer_key, self.consumer_secret)
